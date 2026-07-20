@@ -10,7 +10,7 @@ import { SlashCommandParser } from '/scripts/slash-commands/SlashCommandParser.j
 import { SlashCommand } from '/scripts/slash-commands/SlashCommand.js';
 import { getChat } from '../state.js';
 import {
-    createPanel, getPanelBody, btn, iconBtn, setPanelTitleWithBack,
+    createPanel, getPanelBody, btn, iconBtn, setPanelTitleWithBack, attachAutoHideScrollbar,
 } from '../panel-ui.js';
 import { previewText } from '../utils.js';
 
@@ -90,6 +90,7 @@ export function openMessagePanel() {
 
     const list = document.createElement('div');
     list.className = 'ct-list-scroll';
+    attachAutoHideScrollbar(list);
     body.appendChild(list);
 
     function updateCountLabel() {

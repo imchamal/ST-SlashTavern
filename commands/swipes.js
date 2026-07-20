@@ -3,7 +3,7 @@
 
 import { getChat } from '../state.js';
 import {
-    createPanel, getPanelBody, btn, iconBtn, setPanelTitleWithBack,
+    createPanel, getPanelBody, btn, iconBtn, setPanelTitleWithBack, attachAutoHideScrollbar, centerPanel,
 } from '../panel-ui.js';
 import { previewText } from '../utils.js';
 import { scrollToMessage } from './scroll.js';
@@ -119,6 +119,7 @@ function createSwipeRow({ msgIdx, swipeIdx, text, isCurrent, isSelected, isOpen,
 }
 
 function renderSwipeList(panel) {
+    centerPanel(panel);
     const items = getSwipeItems();
     const body = getPanelBody(panel);
     body.innerHTML = '';
@@ -139,6 +140,7 @@ function renderSwipeList(panel) {
     const ctx = SillyTavern.getContext();
     const list = document.createElement('div');
     list.className = 'ct-list-scroll';
+    attachAutoHideScrollbar(list);
     list.style.maxHeight = 'none';
     body.appendChild(list);
     items.forEach(({ msg, idx }) => {
@@ -190,6 +192,7 @@ function renderSwipeDetail(panel, msgIdx) {
 }
 
 function renderSwipeDetailWithSelection(panel, msgIdx, selectedSwipeIdx, openSwipeIdx = null) {
+    centerPanel(panel);
     const msg = getChat()[msgIdx];
     if (!msg || !Array.isArray(msg.swipes) || msg.swipes.length < 2) {
         renderSwipeList(panel);
@@ -205,6 +208,7 @@ function renderSwipeDetailWithSelection(panel, msgIdx, selectedSwipeIdx, openSwi
 
     const list = document.createElement('div');
     list.className = 'ct-list-scroll';
+    attachAutoHideScrollbar(list);
     list.style.maxHeight = 'none';
     body.appendChild(list);
 

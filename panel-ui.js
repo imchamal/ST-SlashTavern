@@ -181,7 +181,36 @@ export function injectThemeCSS() {
         .ct-list-scroll {
             max-height: 250px; overflow-y: auto; display: flex; flex-direction: column;
             gap: 4px; margin: 0; padding: 0;
+            scrollbar-width: thin;
+            scrollbar-color: transparent transparent;
         }
+
+        .ct-panel-body {
+            scrollbar-width: thin;
+            scrollbar-color: transparent transparent;
+        }
+
+        .ct-list-scroll.ct-scrolling,
+        .ct-panel-body.ct-scrolling {
+            scrollbar-color: rgba(120, 120, 120, .45) transparent;
+        }
+
+        .ct-list-scroll::-webkit-scrollbar,
+        .ct-panel-body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .ct-list-scroll::-webkit-scrollbar-thumb,
+        .ct-panel-body::-webkit-scrollbar-thumb {
+            background: transparent;
+            border-radius: 999px;
+        }
+
+        .ct-list-scroll.ct-scrolling::-webkit-scrollbar-thumb,
+        .ct-panel-body.ct-scrolling::-webkit-scrollbar-thumb {
+            background: rgba(120, 120, 120, .45);
+        }
+
         .ct-item {
             display: flex; align-items: center; gap: var(--ct-list-gap);
             padding: var(--ct-list-item-pad-y) var(--ct-list-item-pad-x);
@@ -336,6 +365,7 @@ export function createPanel(id, title, onClose) {
         panel.remove();
     });
     document.body.appendChild(panel);
+    attachAutoHideScrollbar(panel.querySelector('.ct-panel-body'));
 
     requestAnimationFrame(() => {
         const pw = panel.offsetWidth, ph = panel.offsetHeight;
@@ -346,6 +376,31 @@ export function createPanel(id, title, onClose) {
     makeDraggable(panel, panel.querySelector('.ct-panel-header'));
 
     return panel;
+}
+
+export function centerPanel(panel) {
+    if (!panel) return;
+
+    requestAnimationFrame(() => {
+        const pw = panel.offsetWidth;
+        const ph = panel.offsetHeight;
+        panel.style.left = `${Math.round((window.innerWidth - pw) / 2)}px`;
+        panel.style.top = `${Math.round((window.innerHeight - ph) / 2)}px`;
+    });
+}
+
+export function attachAutoHideScrollbar(scrollEl) {
+    if (!scrollEl || scrollEl.dataset.ctScrollbarAttached === '1') return;
+    scrollEl.dataset.ctScrollbarAttached = '1';
+
+    let timer = null;
+    scrollEl.addEventListener('scroll', () => {
+        scrollEl.classList.add('ct-scrolling');
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            scrollEl.classList.remove('ct-scrolling');
+        }, 800);
+    }, { passive: true });
 }
 
 export const getPanelBody = (panel) => panel.querySelector('.ct-panel-body');
