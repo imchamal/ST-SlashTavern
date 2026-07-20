@@ -112,7 +112,14 @@ export function injectThemeCSS() {
             font-size: 12.5px; color: #3d3d41; margin: 0;
         }
         .ct-check-row input { display: none; }
-        .ct-list-check { display: none; }
+        .ct-list-check {
+            display: none !important;
+            appearance: none !important;
+            -webkit-appearance: none !important;
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
         .ct-check-box {
             width: 16px; height: 16px; border-radius: 5px; border: 1.5px solid #d3d3d7;
             flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;
@@ -206,7 +213,7 @@ export function injectThemeCSS() {
         .ct-swipe-head { display: flex; align-items: center; gap: var(--ct-list-gap); }
         .ct-swipe-content {
             white-space: pre-wrap; margin-top: 7px;
-            padding-left: calc(var(--ct-list-num-w) + var(--ct-list-gap));
+            padding-left: 0;
             font-size: 12px; line-height: 1.55; color: #4a4a4e;
         }
         .ct-menu-list { display: flex; flex-direction: column; gap: 3px; }
