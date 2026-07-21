@@ -17,8 +17,8 @@ export function injectThemeCSS() {
 
             --ct-primary: #3f3f46;
             --ct-primary-hover: #27272a;
-            --ct-primary-tint: #f1f1f2;
-            --ct-primary-tint-strong: #e8e8ea;
+            --ct-primary-tint: #f7f7f8;
+            --ct-primary-tint-strong: #f1f1f2;
             --ct-primary-border: #d7d7db;
 
             --ct-danger: #d9364f;
@@ -72,7 +72,7 @@ export function injectThemeCSS() {
         .ct-close-btn:hover { background: var(--ct-panel-bg-muted); color: var(--ct-text); }
         .ct-btn {
             height: 34px; padding: 0 15px; border-radius: var(--ct-radius-ctl);
-            border: 1px solid var(--ct-border); background: var(--ct-panel-bg-muted);
+            border: 1px solid var(--ct-border); background: #ffffff;
             color: var(--ct-text); cursor: pointer; font-size: 12.5px; font-weight: 600;
             display: inline-flex; align-items: center; justify-content: center; gap: 6px;
             white-space: nowrap; transition: background .12s, border-color .12s, color .12s;
@@ -81,15 +81,27 @@ export function injectThemeCSS() {
         .ct-btn:hover { background: #eeeef0; }
         .ct-btn:disabled { opacity: .5; cursor: default; }
         .ct-btn-primary {
-            background: var(--ct-primary); border-color: var(--ct-primary); color: #ffffff;
+            background: #ffffff;
+            border-color: var(--ct-primary-border);
+            color: var(--ct-primary-hover);
         }
-        .ct-btn-primary:hover { background: var(--ct-primary-hover); border-color: var(--ct-primary-hover); }
+        .ct-btn-primary:hover {
+            background: var(--ct-primary-tint);
+            border-color: var(--ct-primary-border);
+            color: var(--ct-primary-hover);
+        }
         .ct-btn-white { background: #ffffff; color: var(--ct-text); border-color: var(--ct-border); }
         .ct-btn-white:hover { background: #eeeeee; }
         .ct-btn-soft {
-            background: var(--ct-primary-tint); border-color: var(--ct-primary-tint); color: var(--ct-primary);
+            background: var(--ct-panel-bg-muted);
+            border-color: var(--ct-border-soft);
+            color: var(--ct-primary);
         }
-        .ct-btn-soft:hover { background: var(--ct-primary-tint-strong); border-color: var(--ct-primary-tint-strong); color: var(--ct-primary-hover); }
+        .ct-btn-soft:hover {
+            background: var(--ct-primary-tint-strong);
+            border-color: var(--ct-border);
+            color: var(--ct-primary-hover);
+        }
         .ct-btn-link {
             height: auto; padding: 2px 4px; border: none; background: transparent;
             color: var(--ct-primary); font-size: 12px;
@@ -284,7 +296,7 @@ export function injectThemeCSS() {
             width: 38px; height: 22px; border-radius: 999px; background: #dcdce0; position: relative;
             flex-shrink: 0; cursor: pointer; transition: background .15s; border: none; padding: 0;
         }
-        .ct-toggle.ct-on { background: var(--ct-primary); }
+        .ct-toggle.ct-on { background: #6f6f76; }
         .ct-toggle-dot {
             position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%;
             background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,.25); transition: left .15s;
