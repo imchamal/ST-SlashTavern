@@ -9,20 +9,26 @@ export function injectThemeCSS() {
     s.textContent = `
         :root {
             --ct-panel-bg: #ffffff;
-            --ct-panel-bg-muted: #f7f7f8;
-            --ct-border: #e6e6e8;
+            --ct-panel-bg-muted: #f8f8f9;
+            --ct-border: #e5e5e7;
             --ct-border-soft: #eeeeef;
-            --ct-text: #232326;
-            --ct-text-dim: #95959c;
-            --ct-primary: #3f6fe0;
-            --ct-primary-hover: #3259bd;
-            --ct-primary-tint: #eef2fd;
-            --ct-danger: #e0473f;
-            --ct-danger-hover: #c73a33;
-            --ct-danger-tint: #fdeeed;
-            --ct-radius-panel: 16px;
-            --ct-radius-ctl: 9px;
-            --ct-shadow-panel: 0 16px 40px rgba(20,20,24,.14), 0 3px 10px rgba(20,20,24,.06);
+            --ct-text: #242426;
+            --ct-text-dim: #8c8c92;
+
+            --ct-primary: var(--SmartThemeQuoteColor, #c7355a);
+            --ct-primary-hover: color-mix(in srgb, var(--ct-primary) 84%, #000000);
+            --ct-primary-tint: color-mix(in srgb, var(--ct-primary) 9%, #ffffff);
+            --ct-primary-tint-strong: color-mix(in srgb, var(--ct-primary) 14%, #ffffff);
+            --ct-primary-border: color-mix(in srgb, var(--ct-primary) 26%, #ffffff);
+
+            --ct-danger: #d94a44;
+            --ct-danger-hover: #bd3d38;
+            --ct-danger-tint: #fff1f0;
+
+            --ct-radius-panel: 10px;
+            --ct-radius-ctl: 7px;
+            --ct-shadow-panel: 0 10px 28px rgba(20,20,24,.08), 0 1px 4px rgba(20,20,24,.05);
+
             --ct-list-item-pad-y: 7px;
             --ct-list-item-pad-x: 8px;
             --ct-list-num-w: 24px;
@@ -83,7 +89,7 @@ export function injectThemeCSS() {
         .ct-btn-soft {
             background: var(--ct-primary-tint); border-color: var(--ct-primary-tint); color: var(--ct-primary);
         }
-        .ct-btn-soft:hover { background: #e2e9fb; border-color: #e2e9fb; color: var(--ct-primary-hover); }
+        .ct-btn-soft:hover { background: var(--ct-primary-tint-strong); border-color: var(--ct-primary-tint-strong); color: var(--ct-primary-hover); }
         .ct-btn-link {
             height: auto; padding: 2px 4px; border: none; background: transparent;
             color: var(--ct-primary); font-size: 12px;
@@ -166,10 +172,10 @@ export function injectThemeCSS() {
             align-items: center; justify-content: center; font-size: 10.5px; cursor: pointer;
             transition: background .12s, color .12s; padding: 0; margin: 0; font-family: inherit;
         }
-        .ct-icon-btn-sm:hover { background: #eceef3; color: var(--ct-text); }
+        .ct-icon-btn-sm:hover { background: #f1f1f2; color: var(--ct-text); }
         .ct-icon-btn-sm.ct-danger:hover { background: var(--ct-danger-tint); color: var(--ct-danger); }
         .ct-icon-btn-sm.ct-on { background: var(--ct-primary-tint); color: var(--ct-primary); }
-        .ct-icon-btn-sm.ct-on:hover { background: #e2e9fb; color: var(--ct-primary-hover); }
+        .ct-icon-btn-sm.ct-on:hover { background: var(--ct-primary-tint-strong); color: var(--ct-primary-hover); }
         .ct-badge {
             flex-shrink: 0; font-size: 10px; font-weight: 600; color: var(--ct-text-dim);
             background: var(--ct-panel-bg-muted); border: 1px solid var(--ct-border);
@@ -219,7 +225,7 @@ export function injectThemeCSS() {
         }
         .ct-item:hover { background: var(--ct-panel-bg-muted); }
         .ct-item.ct-system { opacity: .55; }
-        .ct-item.ct-current { background: var(--ct-primary-tint); border-color: #d8e2fb; }
+        .ct-item.ct-current { background: var(--ct-primary-tint); border-color: var(--ct-primary-border); }
         .ct-item-num {
             flex-shrink: 0; width: var(--ct-list-num-w); font-size: 11px;
             color: var(--ct-text-dim); font-variant-numeric: tabular-nums;
@@ -237,7 +243,7 @@ export function injectThemeCSS() {
             padding: var(--ct-list-item-pad-y) var(--ct-list-item-pad-x); font-size: 12.3px;
             cursor: pointer;
         }
-        .ct-swipe-row.ct-current { border-color: #c7d7fb; background: var(--ct-primary-tint); }
+        .ct-swipe-row.ct-current { border-color: var(--ct-primary-border); background: var(--ct-primary-tint); }
         .ct-swipe-row.ct-selected:not(.ct-current) { border-color: #ccccd2; }
         .ct-swipe-head { display: flex; align-items: center; gap: var(--ct-list-gap); }
         .ct-swipe-content {
@@ -254,8 +260,8 @@ export function injectThemeCSS() {
         }
         .ct-menu-item:hover { background: var(--ct-panel-bg-muted); }
         .ct-menu-icon {
-            width: 32px; height: 32px; border-radius: 9px; background: var(--ct-primary-tint);
-            color: var(--ct-primary); display: inline-flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; border-radius: 8px; background: var(--ct-panel-bg-muted);
+            color: var(--ct-text-dim); display: inline-flex; align-items: center; justify-content: center;
             font-size: 13px; flex-shrink: 0;
         }
         .ct-menu-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
