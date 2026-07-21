@@ -9,21 +9,21 @@ export function injectThemeCSS() {
     s.textContent = `
         :root {
             --ct-panel-bg: #ffffff;
-            --ct-panel-bg-muted: #f8f8f9;
+            --ct-panel-bg-muted: #f7f7f8;
             --ct-border: #e5e5e7;
             --ct-border-soft: #eeeeef;
             --ct-text: #242426;
             --ct-text-dim: #8c8c92;
 
-            --ct-primary: var(--SmartThemeQuoteColor, #c7355a);
-            --ct-primary-hover: color-mix(in srgb, var(--ct-primary) 84%, #000000);
-            --ct-primary-tint: color-mix(in srgb, var(--ct-primary) 9%, #ffffff);
-            --ct-primary-tint-strong: color-mix(in srgb, var(--ct-primary) 14%, #ffffff);
-            --ct-primary-border: color-mix(in srgb, var(--ct-primary) 26%, #ffffff);
+            --ct-primary: #3f3f46;
+            --ct-primary-hover: #27272a;
+            --ct-primary-tint: #f1f1f2;
+            --ct-primary-tint-strong: #e8e8ea;
+            --ct-primary-border: #d7d7db;
 
-            --ct-danger: #d94a44;
-            --ct-danger-hover: #bd3d38;
-            --ct-danger-tint: #fff1f0;
+            --ct-danger: #d9364f;
+            --ct-danger-hover: #bd2f45;
+            --ct-danger-tint: #fff0f3;
 
             --ct-radius-panel: 10px;
             --ct-radius-ctl: 7px;
@@ -96,9 +96,15 @@ export function injectThemeCSS() {
         }
         .ct-btn-link:hover { background: transparent; color: var(--ct-primary-hover); text-decoration: underline; }
         .ct-btn-danger {
-            background: var(--ct-danger); color: #ffffff; border-color: var(--ct-danger);
+            background: #ffffff;
+            color: var(--ct-danger);
+            border-color: var(--ct-danger);
         }
-        .ct-btn-danger:hover { background: var(--ct-danger-hover); border-color: var(--ct-danger-hover); }
+        .ct-btn-danger:hover {
+            background: var(--ct-danger-tint);
+            color: var(--ct-danger-hover);
+            border-color: var(--ct-danger-hover);
+        }
         .ct-input {
             width: 100%; padding: 9px 12px; border-radius: var(--ct-radius-ctl);
             border: 1px solid var(--ct-border); font-size: 13px; font-family: inherit;
