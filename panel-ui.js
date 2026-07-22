@@ -8,18 +8,22 @@ export function injectThemeCSS() {
     s.id = 'ct-theme-vars';
     s.textContent = `
         :root {
-            --ct-panel-bg: #ffffff;
+            --ct-panel-bg: var(--SmartThemeBlurTintColor, #ffffff);
+            --ct-panel-bg-solid: var(--SmartThemeChatTintColor, #ffffff);
             --ct-panel-bg-muted: #f7f7f8;
-            --ct-border: #e5e5e7;
-            --ct-border-soft: #eeeeef;
-            --ct-text: #242426;
-            --ct-text-dim: #8c8c92;
+            --ct-panel-bg-muted-strong: #f1f1f2;
+            --ct-border: var(--SmartThemeBorderColor, #d7d7db);
+            --ct-border-soft: color-mix(in srgb, var(--ct-border) 56%, transparent);
+            --ct-text: var(--SmartThemeBodyColor, #242426);
+            --ct-text-dim: var(--SmartThemeEmColor, #8c8c92);
 
-            --ct-primary: #3f3f46;
-            --ct-primary-hover: #27272a;
-            --ct-primary-tint: #f7f7f8;
-            --ct-primary-tint-strong: #f1f1f2;
-            --ct-primary-border: #d7d7db;
+            --ct-primary: var(--SmartThemeQuoteColor, #b1e0b3);
+            --ct-primary-hover: var(--SmartThemeUnderlineColor, var(--SmartThemeQuoteColor, #89c98d));
+            --ct-primary-tint: color-mix(in srgb, var(--ct-primary) 18%, var(--ct-panel-bg-muted) 82%);
+            --ct-primary-tint-strong: color-mix(in srgb, var(--ct-primary) 28%, var(--ct-panel-bg-muted-strong) 72%);
+            --ct-primary-border: color-mix(in srgb, var(--ct-primary) 54%, var(--ct-border) 46%);
+            --ct-control-bg: color-mix(in srgb, var(--ct-panel-bg-solid) 88%, var(--ct-panel-bg-muted) 12%);
+            --ct-control-hover: color-mix(in srgb, var(--ct-primary) 14%, var(--ct-panel-bg-muted) 86%);
 
             --ct-danger: #d9364f;
             --ct-danger-hover: #bd2f45;
@@ -50,6 +54,7 @@ export function injectThemeCSS() {
         .ct-panel-header {
             display: flex; justify-content: space-between; align-items: center;
             padding: 11px 10px; border-bottom: 1px solid var(--ct-border-soft); font-weight: 600;
+            background: color-mix(in srgb, var(--ct-panel-bg-solid) 76%, var(--ct-panel-bg-muted) 24%);
             cursor: grab; touch-action: none;
             min-width: 0;
         }
@@ -69,29 +74,29 @@ export function injectThemeCSS() {
             font-size: 13px; cursor: pointer; transition: background .12s, color .12s;
             padding: 0; margin: 0;
         }
-        .ct-close-btn:hover { background: var(--ct-panel-bg-muted); color: var(--ct-text); }
+        .ct-close-btn:hover { background: var(--ct-control-hover); color: var(--ct-text); }
         .ct-btn {
             height: 34px; padding: 0 15px; border-radius: var(--ct-radius-ctl);
-            border: 1px solid var(--ct-border); background: #ffffff;
+            border: 1px solid var(--ct-border); background: var(--ct-control-bg);
             color: var(--ct-text); cursor: pointer; font-size: 12.5px; font-weight: 600;
             display: inline-flex; align-items: center; justify-content: center; gap: 6px;
             white-space: nowrap; transition: background .12s, border-color .12s, color .12s;
             margin: 0; font-family: inherit;
         }
-        .ct-btn:hover { background: #eeeef0; }
+        .ct-btn:hover { background: var(--ct-control-hover); border-color: var(--ct-primary-border); }
         .ct-btn:disabled { opacity: .5; cursor: default; }
         .ct-btn-primary {
-            background: #ffffff;
-            border-color: var(--ct-primary-border);
-            color: var(--ct-primary-hover);
-        }
-        .ct-btn-primary:hover {
             background: var(--ct-primary-tint);
             border-color: var(--ct-primary-border);
-            color: var(--ct-primary-hover);
+            color: var(--ct-text);
         }
-        .ct-btn-white { background: #ffffff; color: var(--ct-text); border-color: var(--ct-border); }
-        .ct-btn-white:hover { background: #eeeeee; }
+        .ct-btn-primary:hover {
+            background: var(--ct-primary-tint-strong);
+            border-color: var(--ct-primary-border);
+            color: var(--ct-text);
+        }
+        .ct-btn-white { background: var(--ct-control-bg); color: var(--ct-text); border-color: var(--ct-border); }
+        .ct-btn-white:hover { background: var(--ct-control-hover); }
         .ct-btn-soft {
             background: var(--ct-panel-bg-muted);
             border-color: var(--ct-border-soft);
@@ -128,12 +133,12 @@ export function injectThemeCSS() {
             padding: var(--ct-list-item-pad-y) var(--ct-list-item-pad-x);
             border-radius: 9px; cursor: pointer; margin: 0;
             border: 1px solid transparent; font-size: 12.3px; line-height: 1.4;
-            background: #ffffff;
+            background: var(--ct-control-bg);
         }
         .ct-result-item:hover { background: var(--ct-panel-bg-muted); border-color: transparent; }
         .ct-check-row {
             display: flex; align-items: center; gap: 8px; cursor: pointer;
-            font-size: 12.5px; color: #3d3d41; margin: 0;
+            font-size: 12.5px; color: var(--ct-text); margin: 0;
         }
         .ct-check-row input { display: none; }
         .ct-list-check {
@@ -145,13 +150,14 @@ export function injectThemeCSS() {
             pointer-events: none;
         }
         .ct-check-box {
-            width: 16px; height: 16px; border-radius: 5px; border: 1.5px solid #d3d3d7;
+            width: 16px; height: 16px; border-radius: 5px; border: 1.5px solid var(--ct-primary-border);
             flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;
             color: #ffffff; font-size: 10px;
         }
         .ct-check-row input:checked + .ct-check-box,
         .ct-list-check:checked + .ct-check-box {
             background: var(--ct-primary); border-color: var(--ct-primary);
+            color: var(--ct-panel-bg-solid);
         }
         .ct-dim { color: var(--ct-text-dim); font-weight: 400; }
         .ct-pos { color: var(--ct-text-dim); font-weight: 400; margin-right: 4px; font-size: 11.5px; white-space: nowrap; }
@@ -181,7 +187,7 @@ export function injectThemeCSS() {
             font-size: 13px; cursor: pointer; transition: background .12s, color .12s;
             padding: 0; margin: 0; font-family: inherit;
         }
-        .ct-icon-btn:hover { background: var(--ct-panel-bg-muted); color: var(--ct-text); }
+        .ct-icon-btn:hover { background: var(--ct-control-hover); color: var(--ct-text); }
         .ct-icon-btn.ct-danger:hover { background: var(--ct-danger-tint); color: var(--ct-danger); }
         .ct-icon-btn.ct-bordered { width: 34px; height: 34px; border: 1px solid var(--ct-border); }
         .ct-icon-btn-sm {
@@ -190,7 +196,7 @@ export function injectThemeCSS() {
             align-items: center; justify-content: center; font-size: 10.5px; cursor: pointer;
             transition: background .12s, color .12s; padding: 0; margin: 0; font-family: inherit;
         }
-        .ct-icon-btn-sm:hover { background: #f1f1f2; color: var(--ct-text); }
+        .ct-icon-btn-sm:hover { background: var(--ct-control-hover); color: var(--ct-text); }
         .ct-icon-btn-sm.ct-danger:hover { background: var(--ct-danger-tint); color: var(--ct-danger); }
         .ct-icon-btn-sm.ct-on { background: var(--ct-primary-tint); color: var(--ct-primary); }
         .ct-icon-btn-sm.ct-on:hover { background: var(--ct-primary-tint-strong); color: var(--ct-primary-hover); }
@@ -241,7 +247,7 @@ export function injectThemeCSS() {
             border-radius: 9px; border: 1px solid transparent; font-size: 12.3px;
             cursor: pointer; transition: background .12s;
         }
-        .ct-item:hover { background: var(--ct-panel-bg-muted); }
+        .ct-item:hover { background: var(--ct-control-hover); }
         .ct-item.ct-system { opacity: .55; }
         .ct-item.ct-current { background: var(--ct-primary-tint); border-color: var(--ct-primary-border); }
         .ct-item-num {
@@ -251,7 +257,7 @@ export function injectThemeCSS() {
         .ct-item-text {
             flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
         }
-        .ct-item-text b { font-weight: 600; color: #3d3d41; margin-right: 4px; }
+        .ct-item-text b { font-weight: 600; color: var(--ct-text); margin-right: 4px; }
         .ct-panel-footer {
             display: flex; align-items: center; justify-content: space-between; gap: 10px;
             margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--ct-border-soft);
@@ -262,12 +268,12 @@ export function injectThemeCSS() {
             cursor: pointer;
         }
         .ct-swipe-row.ct-current { border-color: var(--ct-primary-border); background: var(--ct-primary-tint); }
-        .ct-swipe-row.ct-selected:not(.ct-current) { border-color: #ccccd2; }
+        .ct-swipe-row.ct-selected:not(.ct-current) { border-color: var(--ct-primary-border); }
         .ct-swipe-head { display: flex; align-items: center; gap: var(--ct-list-gap); }
         .ct-swipe-content {
             white-space: pre-wrap; margin-top: 7px;
             padding-left: 0;
-            font-size: 12px; line-height: 1.55; color: #4a4a4e;
+            font-size: 12px; line-height: 1.55; color: var(--ct-text);
         }
         .ct-menu-list { display: flex; flex-direction: column; gap: 3px; }
         .ct-menu-item {
@@ -276,10 +282,10 @@ export function injectThemeCSS() {
             background: transparent; cursor: pointer; font-family: inherit; color: inherit;
             transition: background .12s;
         }
-        .ct-menu-item:hover { background: var(--ct-panel-bg-muted); }
+        .ct-menu-item:hover { background: var(--ct-control-hover); }
         .ct-menu-icon {
-            width: 32px; height: 32px; border-radius: 8px; background: var(--ct-panel-bg-muted);
-            color: var(--ct-text-dim); display: inline-flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; border-radius: 8px; background: var(--ct-primary-tint);
+            color: var(--ct-primary-hover); display: inline-flex; align-items: center; justify-content: center;
             font-size: 13px; flex-shrink: 0;
         }
         .ct-menu-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
@@ -296,7 +302,7 @@ export function injectThemeCSS() {
             width: 38px; height: 22px; border-radius: 999px; background: #dcdce0; position: relative;
             flex-shrink: 0; cursor: pointer; transition: background .15s; border: none; padding: 0;
         }
-        .ct-toggle.ct-on { background: #6f6f76; }
+        .ct-toggle.ct-on { background: var(--ct-primary); }
         .ct-toggle-dot {
             position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%;
             background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,.25); transition: left .15s;
@@ -320,7 +326,7 @@ export function injectThemeCSS() {
         .ct-pill-group {
             position: fixed; z-index: 999999; transform: translate(-50%, 0%);
             display: flex; align-items: center; gap: 2px;
-            background: #ffffff; border: 1px solid var(--ct-border); border-radius: 999px;
+            background: var(--ct-panel-bg); border: 1px solid var(--ct-border); border-radius: 999px;
             padding: 5px; box-shadow: var(--ct-shadow-panel);
             white-space: nowrap; user-select: none;
         }
@@ -329,7 +335,7 @@ export function injectThemeCSS() {
             color: var(--ct-text-dim); display: inline-flex; align-items: center; justify-content: center;
             font-size: 14px; cursor: pointer; padding: 0; transition: background .12s, color .12s;
         }
-        .ct-pill-item:hover { background: var(--ct-panel-bg-muted); color: var(--ct-text); }
+        .ct-pill-item:hover { background: var(--ct-control-hover); color: var(--ct-text); }
     `;
 document.head.appendChild(s);
     watchDrawers();
