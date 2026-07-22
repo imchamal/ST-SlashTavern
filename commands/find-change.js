@@ -169,7 +169,6 @@ export function openSearchInputPanel() {
         e.preventDefault();
         doFind();
     });
-    input.focus();
 }
 
 // ── /change ──────────────────────────────────────────────────────────────────

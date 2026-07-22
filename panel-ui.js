@@ -432,9 +432,7 @@ export function createPanel(id, title, onClose) {
     attachAutoHideScrollbar(panel.querySelector('.ct-panel-body'));
 
     requestAnimationFrame(() => {
-        const pw = panel.offsetWidth, ph = panel.offsetHeight;
-        panel.style.left = `${Math.round((window.innerWidth - pw) / 2)}px`;
-        panel.style.top = `${Math.round((window.innerHeight - ph) / 2)}px`;
+        placePanelInViewport(panel);
         panel.style.opacity = '1';
     });
     makeDraggable(panel, panel.querySelector('.ct-panel-header'));
@@ -446,10 +444,7 @@ export function centerPanel(panel) {
     if (!panel) return;
 
     requestAnimationFrame(() => {
-        const pw = panel.offsetWidth;
-        const ph = panel.offsetHeight;
-        panel.style.left = `${Math.round((window.innerWidth - pw) / 2)}px`;
-        panel.style.top = `${Math.round((window.innerHeight - ph) / 2)}px`;
+        placePanelInViewport(panel);
     });
 }
 
@@ -469,6 +464,29 @@ export function attachAutoHideScrollbar(scrollEl) {
 
 export const getPanelBody = (panel) => panel.querySelector('.ct-panel-body');
 export const closePanel = (id) => document.getElementById(id)?.remove();
+
+function getViewportBounds() {
+    const vv = window.visualViewport;
+    if (!vv) return { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight };
+    return {
+        left: vv.offsetLeft,
+        top: vv.offsetTop,
+        width: vv.width,
+        height: vv.height,
+    };
+}
+
+function placePanelInViewport(panel) {
+    const viewport = getViewportBounds();
+    const pw = panel.offsetWidth;
+    const ph = panel.offsetHeight;
+    const margin = 10;
+    const left = viewport.left + Math.max(margin, Math.round((viewport.width - pw) / 2));
+    const top = viewport.top + Math.max(margin, Math.round((viewport.height - ph) / 2));
+
+    panel.style.left = `${left}px`;
+    panel.style.top = `${top}px`;
+}
 
 export function setPanelTitle(panel, titleHtml) {
     const titleEl = panel.querySelector('.ct-panel-title');

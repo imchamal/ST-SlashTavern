@@ -62,8 +62,6 @@ function openQuickEditPanel(msgIdx, originalText) {
     applyBtn.innerHTML = '<i class="fa-solid fa-check"></i> 적용';
     row.appendChild(applyBtn);
     body.appendChild(row);
-    input.focus();
-    input.select();
 }
 
 function handleSelection() {
